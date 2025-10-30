@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -14,6 +13,9 @@
     
     <!-- Iconify for diverse and reliable icons -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- AOS (Animate on Scroll) Library for fun animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <script>
         // Custom Tailwind theme to match logo colors and add playful fonts
@@ -111,6 +113,20 @@
         .hero-bg-color {
             background-color: #B0E0E6; /* Your logo background color */
         }
+        
+        /* FAQ Accordion Styles */
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+        .faq-item summary {
+            list-style: none;
+        }
+        .faq-item .plus-icon, .faq-item[open] .minus-icon {
+            display: inline-block;
+        }
+        .faq-item .minus-icon, .faq-item[open] .plus-icon {
+            display: none;
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
@@ -127,20 +143,24 @@
                 </svg>
             </button>
             
-            <div class="hidden md:flex space-x-8 items-center text-lg font-bold">
+            <div class="hidden md:flex space-x-6 items-center text-lg font-bold">
                 <a href="#home" class="nav-link text-gray-700 hover:text-logo-blue-darker transition-colors duration-300">Home</a>
-                <a href="#about" class="nav-link text-gray-700 hover:text-logo-green-darker transition-colors duration-300">About Us</a>
+                <a href="#about" class="nav-link text-gray-700 hover:text-logo-green-darker transition-colors duration-300">About</a>
                 <a href="#gallery" class="nav-link text-gray-700 hover:text-logo-orange-darker transition-colors duration-300">Gallery</a>
                 <a href="#classes" class="nav-link text-gray-700 hover:text-logo-pink-darker transition-colors duration-300">Classes</a>
+                <a href="#testimonials" class="nav-link text-gray-700 hover:text-logo-blue-darker transition-colors duration-300">Testimonials</a>
+                <a href="#faq" class="nav-link text-gray-700 hover:text-logo-green-darker transition-colors duration-300">FAQ</a>
                 <a href="#contact" class="bg-logo-blue-darker text-white font-bold py-3 px-6 rounded-full shadow-md hover:bg-logo-blue transition-all duration-300 transform hover:scale-105">Contact Us</a>
             </div>
         </nav>
         
         <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg py-2">
             <a href="#home" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Home</a>
-            <a href="#about" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">About Us</a>
+            <a href="#about" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">About</a>
             <a href="#gallery" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Gallery</a>
             <a href="#classes" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Classes</a>
+            <a href="#testimonials" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Testimonials</a>
+            <a href="#faq" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">FAQ</a>
             <a href="#contact" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Contact Us</a>
         </div>
     </header>
@@ -148,13 +168,13 @@
     <main>
         <section id="home" class="relative hero-bg-color pt-24 pb-32">
             <div class="container mx-auto px-6 py-16 text-center z-10 relative">
-                <h1 class="font-heading text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 drop-shadow-md">
+                <h1 class="font-heading text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 drop-shadow-md" data-aos="fade-down">
                     Welcome to Rainbow Clay Art!
                 </h1>
-                <p class="text-lg md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto leading-relaxed">
+                <p class="text-lg md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
                     Where little hands create <span class="font-bold text-logo-pink-darker">big magic</span> and imaginations come to life! Fun, messy, and creative clay classes for kids across <span class="font-bold text-logo-green-darker">New Zealand</span>.
                 </p>
-                <div class="space-y-4 sm:space-y-0 sm:space-x-4">
+                <div class="space-y-4 sm:space-y-0 sm:space-x-4" data-aos="fade-up" data-aos-delay="400">
                     <a href="#classes" class="bg-logo-pink-darker text-white font-bold font-heading py-4 px-10 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform duration-300 inline-block drop-shadow-md">
                         Explore Our Classes!
                     </a>
@@ -173,29 +193,29 @@
 
         <section id="why-us" class="py-20 bg-white">
             <div class="container mx-auto px-6">
-                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-center text-gray-900 mb-16">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-center text-gray-900 mb-16" data-aos="fade-up">
                     Why Rainbow Clay Art is <span class="text-logo-orange-darker">Uniquely Awesome</span>!
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                    <div class="bg-logo-blue bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <div class="bg-logo-blue bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
                         <h3 class="font-heading text-2xl font-bold mb-3 text-center text-gray-800">Spark Creativity</h3>
                         <p class="text-gray-600 text-center">
                             We ignite imaginations! Kids freely explore textures, colors, and shapes, turning their wildest dreams into real, squishy art.
                         </p>
                     </div>
-                    <div class="bg-logo-pink bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <div class="bg-logo-pink bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
                         <h3 class="font-heading text-2xl font-bold mb-3 text-center text-gray-800">Giggles Guaranteed</h3>
                         <p class="text-gray-600 text-center">
                             Learning should be FUN! Our classes are bursting with laughter, happy messes, and zero pressure – just pure, joyful exploration.
                         </p>
                     </div>
-                    <div class="bg-logo-green bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <div class="bg-logo-green bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
                         <h3 class="font-heading text-2xl font-bold mb-3 text-center text-gray-800">Kid-Safe & Friendly</h3>
                         <p class="text-gray-600 text-center">
                             We use only non-toxic, super-soft clay perfect for little hands. Our environment is welcoming, encouraging, and super safe!
                         </p>
                     </div>
-                    <div class="bg-logo-purple bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <div class="bg-logo-purple bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="400">
                         <h3 class="font-heading text-2xl font-bold mb-3 text-center text-gray-800">Skill Building Fun</h3>
                         <p class="text-gray-600 text-center">
                             Beyond fun, kids develop fine motor skills, hand-eye coordination, focus, and confidence with every masterpiece they create.
@@ -212,11 +232,11 @@
                </svg>
            </div>
             <div class="container mx-auto px-6 text-center z-10 relative pt-12">
-                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-12">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-12" data-aos="fade-up">
                     Our <span class="text-logo-blue-darker">Magical</span> Clay Classes
                 </h2>
                 <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                    <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-logo-pink-darker transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-logo-pink-darker transform hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up-right">
                         <h3 class="font-heading text-3xl font-bold text-gray-800 mb-4">Weekly Clay Explorers</h3>
                         <p class="text-gray-700 text-lg mb-6">
                             Join our vibrant weekly sessions! Each class brings a new theme – from fantastical creatures to yummy clay treats. Watch as your child develops fine motor skills, color theory, and boundless creativity!
@@ -231,7 +251,7 @@
                         </a>
                     </div>
 
-                    <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-logo-orange-darker transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-logo-orange-darker transform hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up-left">
                         <h3 class="font-heading text-3xl font-bold text-gray-800 mb-4">Clay Art Birthday Parties!</h3>
                         <p class="text-gray-700 text-lg mb-6">
                             Celebrate with a splash of creativity! Our hassle-free clay parties are a hit. We provide everything – fun projects, materials, and a dedicated instructor – for an unforgettable birthday experience.
@@ -256,51 +276,94 @@
 
         <section id="gallery" class="py-20 bg-white">
             <div class="container mx-auto px-6">
-                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-center text-gray-900 mb-12">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-center text-gray-900 mb-12" data-aos="fade-up">
                     Our Little Artists' <span class="text-logo-green-darker">Masterpiece Gallery</span>
                 </h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square">
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="100">
                         <img src="https://placehold.co/400x400/FFC0CB/ffffff?text=Funny+Friend" alt="Clay artwork of a funny character" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square">
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="200">
                         <img src="https://placehold.co/400x400/98FB98/ffffff?text=Cool+Creature" alt="Clay artwork of a green creature" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square">
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="300">
                         <img src="https://placehold.co/400x400/ADD8E6/ffffff?text=Space+Rocket" alt="Clay artwork of a blue rocket" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square">
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="400">
                         <img src="https://placehold.co/400x400/FFDAB9/ffffff?text=Yummy+Cake" alt="Clay artwork of a cake" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square">
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="500">
                         <img src="https://placehold.co/400x400/E6E6FA/ffffff?text=Magical+Unicorn" alt="Clay artwork of a unicorn" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square">
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="600">
                         <img src="https://placehold.co/400x400/FFFACD/ffffff?text=Sunny+Flower" alt="Clay artwork of a flower" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square">
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="700">
                         <img src="https://placehold.co/400x400/77DD77/ffffff?text=Big+Tree" alt="Clay artwork of a tree" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square">
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="800">
                         <img src="https://placehold.co/400x400/9370DB/ffffff?text=Fantasy+Castle" alt="Clay artwork of a castle" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" />
                     </div>
                 </div>
-                <div class="text-center mt-12">
+                <div class="text-center mt-12" data-aos="fade-up">
                     <a href="#contact" class="bg-logo-blue-darker text-white font-bold font-heading py-4 px-10 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform duration-300 inline-block drop-shadow-md">
                         Your Child's Art Here Soon!
                     </a>
                 </div>
             </div>
         </section>
-
-        <section id="about" class="py-20 hero-bg-color relative">
+        
+        <section id="testimonials" class="py-20 hero-bg-color relative">
             <div class="wavy-divider-top" style="fill:#ffffff;">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
                </svg>
            </div>
-            <div class="container mx-auto px-6 pt-12">
-                <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="container mx-auto px-6 text-center z-10 relative pt-12">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-12" data-aos="fade-up">
+                    What <span class="text-logo-pink-darker">Happy Parents</span> Say
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                    <div class="bg-white p-8 rounded-3xl shadow-xl transform" data-aos="fade-right">
+                        <iconify-icon icon="fa:quote-left" class="text-logo-pink-darker text-4xl mb-4"></iconify-icon>
+                        <p class="text-gray-700 text-lg mb-6 italic">
+                            "My daughter absolutely loves her weekly class at Rainbow Clay Art. She comes home so proud of her creations, and her confidence has blossomed. The environment is so nurturing and fun!"
+                        </p>
+                        <div class="flex justify-center text-yellow-400 mb-4">
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                        </div>
+                        <p class="font-heading text-2xl font-bold text-gray-800">- Sarah J.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-xl" data-aos="fade-left">
+                        <iconify-icon icon="fa:quote-left" class="text-logo-green-darker text-4xl mb-4"></iconify-icon>
+                        <p class="text-gray-700 text-lg mb-6 italic">
+                            "We had my son's 5th birthday party here and it was the best decision! The kids were so engaged, and the team handled everything. It was creative, stress-free, and a huge hit. Highly recommend!"
+                        </p>
+                         <div class="flex justify-center text-yellow-400 mb-4">
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                        </div>
+                        <p class="font-heading text-2xl font-bold text-gray-800">- Ben L.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="wavy-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
+        </section>
+
+        <section id="about" class="py-20 bg-white relative">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center gap-12" data-aos="fade-up">
                     <div class="w-full md:w-1/2 order-2 md:order-1">
                         <img src="https://placehold.co/600x450/FFDAB9/ffffff?text=Happy+Kids+Creating" alt="Happy kids creating clay art" class="rounded-3xl shadow-2xl w-full" />
                     </div>
@@ -315,10 +378,31 @@
                         <p class="text-lg text-gray-700 mb-6 leading-relaxed">
                             Our mission is to foster creativity, encourage self-expression, and create lasting, happy memories for every child. We believe every pinch, roll, and squish builds a brighter, more imaginative world!
                         </p>
-                        <a href="#contact" class="bg-logo-pink-darker text-white font-bold font-heading py-3 px-8 rounded-full text-lg shadow-md hover:bg-logo-pink transition-colors duration-300 inline-block transform hover:scale-105">
+                        <a href="#team" class="bg-logo-pink-darker text-white font-bold font-heading py-3 px-8 rounded-full text-lg shadow-md hover:bg-logo-pink transition-colors duration-300 inline-block transform hover:scale-105">
                             Meet Our Fun Team &rarr;
                         </a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="py-20 hero-bg-color relative">
+            <div class="wavy-divider-top" style="fill:#ffffff;">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
+            <div class="container mx-auto px-6 text-center z-10 relative pt-12">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-12" data-aos="fade-up">
+                    Meet the <span class="text-logo-orange-darker">Creative Spark</span>
+                </h2>
+                <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl transform" data-aos="zoom-in-up">
+                    <img src="https://placehold.co/200x200/FFC0CB/4A4A4A?text=Kath" alt="Photo of Kath Pothipat" class="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg border-4 border-white">
+                    <h3 class="font-heading text-3xl font-bold text-gray-800">Kath Pothipat</h3>
+                    <p class="font-bold text-logo-orange-darker text-lg mb-4">Founder & Lead Instructor</p>
+                    <p class="text-gray-700">
+                        "There's nothing more magical than seeing a child's eyes light up when they bring their imagination to life with their own hands. That's the magic I want to share with every family!"
+                    </p>
                 </div>
             </div>
             <div class="wavy-divider">
@@ -327,9 +411,63 @@
                </svg>
            </div>
         </section>
+        
+        <section id="faq" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-center text-gray-900 mb-16" data-aos="fade-up">
+                    Frequently Asked <span class="text-logo-blue-darker">Questions</span>
+                </h2>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <details class="faq-item bg-gray-50 p-6 rounded-2xl shadow-sm cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                        <summary class="flex justify-between items-center font-bold text-lg text-gray-800">
+                            Is the clay safe for young children?
+                            <span class="text-2xl text-logo-blue-darker">
+                               <span class="plus-icon">+</span><span class="minus-icon">-</span>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                            Absolutely! The safety of our little artists is our top priority. We exclusively use high-quality, non-toxic, super-soft air-dry clay that is certified safe for children and easy for little hands to work with.
+                        </p>
+                    </details>
+                    <details class="faq-item bg-gray-50 p-6 rounded-2xl shadow-sm cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                        <summary class="flex justify-between items-center font-bold text-lg text-gray-800">
+                            What should my child wear to a class?
+                            <span class="text-2xl text-logo-blue-darker">
+                               <span class="plus-icon">+</span><span class="minus-icon">-</span>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                            We encourage creative messes! Please send your child in comfortable clothes that you don't mind getting a little bit of color on. While the clay is water-based and generally doesn't stain, it's always best to wear "art-friendly" attire.
+                        </p>
+                    </details>
+                     <details class="faq-item bg-gray-50 p-6 rounded-2xl shadow-sm cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                        <summary class="flex justify-between items-center font-bold text-lg text-gray-800">
+                            Do we need to bring any supplies?
+                            <span class="text-2xl text-logo-blue-darker">
+                               <span class="plus-icon">+</span><span class="minus-icon">-</span>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                           Nope, just bring your imagination! We provide all the clay, tools, and materials needed for each project. Everything is included in the class or party fee.
+                        </p>
+                    </details>
+                    <details class="faq-item bg-gray-50 p-6 rounded-2xl shadow-sm cursor-pointer" data-aos="fade-up" data-aos-delay="400">
+                        <summary class="flex justify-between items-center font-bold text-lg text-gray-800">
+                            Can my child take their artwork home?
+                            <span class="text-2xl text-logo-blue-darker">
+                               <span class="plus-icon">+</span><span class="minus-icon">-</span>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                           Of course! Every child takes their unique masterpiece home at the end of each class. The air-dry clay will harden on its own in 24-48 hours, becoming a lasting treasure to display proudly.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </section>
 
         <section id="contact" class="py-20 bg-white relative">
-            <div class="container mx-auto px-6">
+            <div class="container mx-auto px-6" data-aos="fade-up">
                 <div class="max-w-4xl mx-auto bg-logo-blue bg-opacity-15 p-8 md:p-12 rounded-3xl shadow-2xl">
                     <div class="text-center">
                         <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
@@ -381,7 +519,14 @@
         </div>
     </footer>
 
+    <!-- AOS (Animate on Scroll) Library -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
+        AOS.init({
+            duration: 800, // animation duration
+            once: true,    // whether animation should happen only once
+        });
+
         // --- JavaScript for Mobile Menu ---
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
