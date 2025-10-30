@@ -531,39 +531,33 @@
             once: true,    // whether animation should happen only once
         });
 
-        // --- JavaScript for Mobile Menu ---
+        // --- JavaScript for Navigation ---
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.nav-link-mobile');
+        // Select all navigation links within the header to handle clicks
+        const allNavLinks = document.querySelectorAll('header a[href^="#"]'); 
+        const desktopNavLinks = document.querySelectorAll('nav .nav-link');
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu .nav-link-mobile');
 
+        // --- Mobile Menu Toggle ---
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
+        // --- Function to update active link styles ---
+        const setActiveLink = (targetHref) => {
+            if (!targetHref) return;
 
-        // --- JavaScript for Active Nav Link on Scroll ---
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const mobileNavLinks = document.querySelectorAll('.nav-link-mobile');
-
-        const updateActiveLink = (id) => {
-            if (!id) return;
-            navLinks.forEach(link => {
-                const linkHref = link.getAttribute('href');
-                if (linkHref === `#${id}`) {
+            desktopNavLinks.forEach(link => {
+                if (link.getAttribute('href') === targetHref) {
                     link.classList.add('active');
                 } else {
                     link.classList.remove('active');
                 }
             });
+
             mobileNavLinks.forEach(link => {
-                const linkHref = link.getAttribute('href');
-                if (linkHref === `#${id}`) {
+                if (link.getAttribute('href') === targetHref) {
                     link.classList.add('font-bold', 'text-gray-900', 'bg-gray-50');
                 } else {
                     link.classList.remove('font-bold', 'text-gray-900', 'bg-gray-50');
@@ -571,31 +565,34 @@
             });
         };
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5, 
-        };
+        // --- Main navigation click handler ---
+        allNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetHref = link.getAttribute('href');
+                const targetElement = document.querySelector(targetHref);
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    updateActiveLink(id);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 }
-            });
-        }, observerOptions);
+                
+                setActiveLink(targetHref);
 
-        sections.forEach(section => {
-            observer.observe(section);
+                // Hide mobile menu after a click
+                mobileMenu.classList.add('hidden');
+            });
         });
 
+        // --- Set initial active link on page load ---
         window.addEventListener('load', () => {
-            const currentHash = window.location.hash.substring(1);
+            // Check hash on load to support direct links to sections
+            const currentHash = window.location.hash;
             if (currentHash) {
-                updateActiveLink(currentHash);
+                setActiveLink(currentHash);
             } else {
-                updateActiveLink('home');
+                setActiveLink('#home');
             }
         });
     </script>
