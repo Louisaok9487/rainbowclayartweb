@@ -131,6 +131,45 @@
         .faq-item .minus-icon, .faq-item[open] .plus-icon {
             display: none;
         }
+
+        /* --- New Gallery Hover Effects --- */
+        .gallery-item {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            z-index: 10;
+            transform: translateY(-8px); /* Pop out effect */
+        }
+        /* Animated border pseudo-element */
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            /* Position outside the item to form a border */
+            top: -8px; left: -8px; right: -8px; bottom: -8px;
+            /* Make it rounded, slightly larger than the image's rounded-2xl */
+            border-radius: 1.25rem; 
+            border: 8px solid;
+            border-color: var(--border-color);
+            /* Initial state: hidden */
+            opacity: 0;
+            transform: scale(0.95);
+            /* Animate on hover */
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            pointer-events: none; /* Make sure it doesn't block hover events */
+        }
+        .gallery-item:hover::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+        /* Color variables for different gallery items */
+        .gallery-item-pink { --border-color: #F472B6; }
+        .gallery-item-green { --border-color: #34D399; }
+        .gallery-item-blue { --border-color: #3B82F6; }
+        .gallery-item-orange { --border-color: #F97316; }
+        .gallery-item-purple { --border-color: #a855f7; } /* Tailwind's purple-500 */
+        .gallery-item-yellow { --border-color: #f59e0b; } /* Tailwind's amber-500 */
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
@@ -331,29 +370,29 @@
                     Our Little Artists' <span class="text-logo-green-darker">Masterpiece Gallery</span>
                 </h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-pink" data-aos="zoom-in" data-aos-delay="100">
-                        <img src="images/1.jpg" alt="Clay artwork by a child" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    <div class="group gallery-item gallery-item-pink relative rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="100">
+                        <img src="images/1.jpg" alt="Clay artwork by a child" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3 rounded-2xl" loading="lazy" decoding="async" width="500" height="500" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-green" data-aos="zoom-in" data-aos-delay="200">
-                        <img src="images/2.jpg" alt="Colorful clay creation" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    <div class="group gallery-item gallery-item-green relative rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="200">
+                        <img src="images/2.jpg" alt="Colorful clay creation" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3 rounded-2xl" loading="lazy" decoding="async" width="500" height="500" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-blue" data-aos="zoom-in" data-aos-delay="300">
-                        <img src="images/3.jpg" alt="Child's clay space rocket" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    <div class="group gallery-item gallery-item-blue relative rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="300">
+                        <img src="images/3.jpg" alt="Child's clay space rocket" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3 rounded-2xl" loading="lazy" decoding="async" width="500" height="500" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-orange" data-aos="zoom-in" data-aos-delay="400">
-                        <img src="images/4.jpg" alt="A cake made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    <div class="group gallery-item gallery-item-orange relative rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="400">
+                        <img src="images/4.jpg" alt="A cake made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3 rounded-2xl" loading="lazy" decoding="async" width="500" height="500" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-purple" data-aos="zoom-in" data-aos-delay="500">
-                        <img src="images/5.jpg" alt="A magical clay unicorn" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    <div class="group gallery-item gallery-item-purple relative rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="500">
+                        <img src="images/5.jpg" alt="A magical clay unicorn" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3 rounded-2xl" loading="lazy" decoding="async" width="500" height="500" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-yellow" data-aos="zoom-in" data-aos-delay="600">
-                        <img src="images/6.jpg" alt="A sunny flower made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    <div class="group gallery-item gallery-item-yellow relative rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="600">
+                        <img src="images/6.jpg" alt="A sunny flower made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3 rounded-2xl" loading="lazy" decoding="async" width="500" height="500" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-green" data-aos="zoom-in" data-aos-delay="700">
-                        <img src="images/7.jpg" alt="A big tree made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    <div class="group gallery-item gallery-item-green relative rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="700">
+                        <img src="images/7.jpg" alt="A big tree made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3 rounded-2xl" loading="lazy" decoding="async" width="500" height="500" />
                     </div>
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-pink" data-aos="zoom-in" data-aos-delay="800">
-                        <img src="images/8.jpg" alt="A fantasy castle made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    <div class="group gallery-item gallery-item-pink relative rounded-2xl shadow-lg aspect-square" data-aos="zoom-in" data-aos-delay="800">
+                        <img src="images/8.jpg" alt="A fantasy castle made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3 rounded-2xl" loading="lazy" decoding="async" width="500" height="500" />
                     </div>
                 </div>
                 <div class="text-center mt-12" data-aos="fade-up">
@@ -570,7 +609,7 @@
     <footer class="bg-gray-800 text-gray-300 py-12">
         <div class="container mx-auto px-6 flex flex-col items-center text-center">
             <a href="#home" class="mb-4">
-                 <img src="images/logo.png" alt="Rainbow Clay Art Logo" class="h-20 w-20 rounded-full object-contain border-2 border-white shadow-lg" width="80" height="80" />
+                 <img src="images/logo.png" alt="Rainbow Clay Art Logo" class="h-20 w-20 bg-white rounded-full object-contain border-2 border-white shadow-lg" width="80" height="80" />
             </a>
             <p class="font-medium">&copy; 2025 Rainbow Clay Art. All Rights Reserved.</p>
             <p class="text-sm mt-2">💖 Inspiring creativity and joy through clay.🌈</p>
