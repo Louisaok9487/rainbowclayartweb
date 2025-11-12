@@ -1,80 +1,663 @@
-// This declaration is necessary because AOS is loaded from a CDN.
-declare const AOS: { init: (options: any) => void; };
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainbow Clay Art - Fun Kids Clay Classes in NZ</title>
+    <!-- Favicon -->
+    <link rel="icon" href="images/logo.png" type="image/png">
+    
+    <!-- Font Optimization: Preconnect to Google Fonts servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Baloo 2 & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Performance Optimization: Load animation CSS asynchronously -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"></noscript>
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Check if AOS is loaded before initializing
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 800, // animation duration
-            once: true,    // whether animation should happen only once
-        });
-    }
+    <script>
+        // Custom Tailwind theme to match logo colors and add playful fonts
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['"Baloo 2"', 'sans-serif'], // Playful font for headings
+                        sans: ['Inter', 'sans-serif'], // Clean font for body text
+                    },
+                    colors: {
+                        // Colors extracted directly from your logo
+                        'logo-pink': '#FFC0CB', // Light Pink
+                        'logo-orange': '#FFDAB9', // Peach/Light Orange
+                        'logo-yellow': '#FFFACD', // Lemon Chiffon/Very Light Yellow
+                        'logo-green': '#98FB98', // Pale Green
+                        'logo-blue': '#ADD8E6', // Light Blue
+                        'logo-purple': '#E6E6FA', // Lavender (from smaller swirls)
+                        'logo-cloud': '#F5F5DC', // Light beige/cream for clouds
+                        'logo-bg': '#B0E0E6', // Powder Blue for background (used as a highlight)
+                        // Darker shades for better contrast
+                        'logo-pink-darker': '#F472B6', // Deeper pink for contrast
+                        'logo-green-darker': '#34D399', // Deeper green for contrast
+                        'logo-orange-darker': '#F97316', // Deeper orange for contrast
+                        'logo-blue-darker': '#3B82F6', // Deeper blue for contrast
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        /* Simple style for the active nav link */
+        .nav-link.active {
+            color: #4b5563; /* Gray-700 for better contrast on colorful background */
+            font-weight: 700;
+            position: relative;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: currentColor; /* Matches the text color */
+            border-radius: 50%;
+        }
 
-    // --- JavaScript for Navigation ---
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    // Select all navigation links within the header to handle clicks
-    const allNavLinks = document.querySelectorAll<HTMLAnchorElement>('header a[href^="#"]'); 
-    const desktopNavLinks = document.querySelectorAll<HTMLAnchorElement>('nav .nav-link');
-    const mobileNavLinks = document.querySelectorAll<HTMLAnchorElement>('#mobile-menu .nav-link-mobile');
+        /* Custom wavy divider for visual interest, mimicking clay */
+        .wavy-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+            z-index: 1; /* Ensure it's above other elements if needed */
+        }
 
-    // --- Mobile Menu Toggle ---
-    if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
+        .wavy-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px; /* Increased height for more pronounced wave */
+        }
 
-    // --- Function to update active link styles ---
-    const setActiveLink = (targetHref: string | null) => {
-        if (!targetHref) return;
+        .wavy-divider .shape-fill {
+            fill: #ffffff; /* White to separate sections cleanly */
+        }
 
-        desktopNavLinks.forEach(link => {
-            if (link.getAttribute('href') === targetHref) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
+        /* Top divider */
+        .wavy-divider-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 1; /* Ensure it's above other elements if needed */
+        }
 
-        mobileNavLinks.forEach(link => {
-            if (link.getAttribute('href') === targetHref) {
-                link.classList.add('font-bold', 'text-gray-900', 'bg-gray-50');
-            } else {
-                link.classList.remove('font-bold', 'text-gray-900', 'bg-gray-50');
-            }
-        });
-    };
+        .wavy-divider-top svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+        .wavy-divider-top .shape-fill {
+            fill: #ffffff;
+        }
 
-    // --- Main navigation click handler ---
-    allNavLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetHref = link.getAttribute('href');
-            if (!targetHref) return;
-            const targetElement = document.querySelector(targetHref);
+        /* Specific background for the hero section to match logo background color */
+        .hero-bg-color {
+            background-color: #B0E0E6; /* Your logo background color */
+        }
+        
+        /* FAQ Accordion Styles */
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+        .faq-item summary {
+            list-style: none;
+        }
+        .faq-item .plus-icon, .faq-item[open] .minus-icon {
+            display: inline-block;
+        }
+        .faq-item .minus-icon, .faq-item[open] .plus-icon {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800">
 
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="flex items-center space-x-2">
+                <img src="images/logo.png" alt="Rainbow Clay Art Logo" class="logo-img h-12 w-12 md:h-16 md:w-16 rounded-full object-contain" width="64" height="64" />
+            </a>
+            
+            <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none p-2 rounded-md hover:bg-gray-100" aria-label="Open menu">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            
+            <div class="hidden md:flex space-x-6 items-center text-lg font-bold">
+                <a href="#home" class="nav-link text-gray-700 hover:text-logo-blue-darker transition-colors duration-300">Home</a>
+                <a href="#about" class="nav-link text-gray-700 hover:text-logo-green-darker transition-colors duration-300">About</a>
+                <a href="#gallery" class="nav-link text-gray-700 hover:text-logo-orange-darker transition-colors duration-300">Gallery</a>
+                <a href="#classes" class="nav-link text-gray-700 hover:text-logo-pink-darker transition-colors duration-300">Classes</a>
+                <a href="#testimonials" class="nav-link text-gray-700 hover:text-logo-blue-darker transition-colors duration-300">Testimonials</a>
+                <a href="#faq" class="nav-link text-gray-700 hover:text-logo-green-darker transition-colors duration-300">FAQ</a>
+                <a href="#contact" class="bg-logo-blue-darker text-white font-bold py-3 px-6 rounded-full shadow-md hover:bg-logo-blue transition-all duration-300 transform hover:scale-105">Contact Us</a>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg py-2">
+            <a href="#home" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Home</a>
+            <a href="#about" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">About</a>
+            <a href="#gallery" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Gallery</a>
+            <a href="#classes" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Classes</a>
+            <a href="#testimonials" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Testimonials</a>
+            <a href="#faq" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">FAQ</a>
+            <a href="#contact" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Contact Us</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="relative hero-bg-color pt-24 pb-32">
+            <div class="container mx-auto px-6 py-16 text-center z-10 relative">
+                <h1 class="font-heading text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 drop-shadow-md" data-aos="fade-down">
+                    Welcome to Rainbow Clay Art!
+                </h1>
+                <p class="text-lg md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                    Inspiring creativity <span class="font-bold text-logo-pink-darker">Since 2014</span> from Cambodia’s top IB schools to New Zealand! 
+                    Partnering with leading international schools, we bring joyful, hands-on clay experiences that spark imagination, confidence, and creativity<span class="font-bold text-logo-green-darker"> in every age</span>.
+                </p>
+                <div class="space-y-4 sm:space-y-0 sm:space-x-4" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#classes" class="bg-logo-pink-darker text-white font-bold font-heading py-4 px-10 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform duration-300 inline-block drop-shadow-md">
+                        Explore Our Classes!
+                    </a>
+                    <a href="#gallery" class="bg-logo-yellow text-gray-800 font-bold font-heading py-4 px-10 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform duration-300 inline-block drop-shadow-md">
+                        See Masterpieces!
+                    </a>
+                </div>
+            </div>
+            
+            <div class="wavy-divider">
+                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div>
+        </section>
+
+        <section id="why-us" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-center text-gray-900 mb-16" data-aos="fade-up">
+                    Why Rainbow Clay Art is <span class="text-logo-orange-darker">Uniquely Awesome</span>!
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div class="bg-logo-blue bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="font-heading text-2xl font-bold mb-3 text-center text-gray-800">💡Creative Growth Journey</h3>
+                        <p class="text-gray-600 text-center">
+                            Step by step, each workshop builds new skills and confidence, guiding every creator from simple shapes to masterpieces.
+                        </p>
+                    </div>
+                    <div class="bg-logo-pink bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="font-heading text-2xl font-bold mb-3 text-center text-gray-800">💖 Adorable Meets Artful</h3>
+                        <p class="text-gray-600 text-center">
+                           Cute, cool, and creative, our clay designs blend fun with artistic style, perfect for every age and personality.
+                        </p>
+                    </div>
+                    <div class="bg-logo-green bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="font-heading text-2xl font-bold mb-3 text-center text-gray-800">🧘‍♀️ Hands-on Mindfulness</h3>
+                        <p class="text-gray-600 text-center">
+                            Clay time is calm time. Feel relaxed, focused, and joyful as your imagination takes shape in your hands.
+                        </p>
+                    </div>
+                    <div class="bg-logo-purple bg-opacity-15 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="font-heading text-2xl font-bold mb-3 text-center text-gray-800">🌈 Confidence Through Creation
+</h3>
+                        <p class="text-gray-600 text-center">
+                            Every finished piece is a proud moment, a reminder that creativity grows through patience, play, and perseverance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="classes" class="py-20 hero-bg-color relative">
+            <div class="wavy-divider-top" style="fill:#ffffff;">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
+            <div class="container mx-auto px-6 text-center z-10 relative pt-12">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-12" data-aos="fade-up">
+                   🌈 Our Clay Art Classes
+                </h2>
+  <p class="text-lg md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+
+  Inspiring creativity and joy through clay.
+</p>
+                <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                    <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-logo-pink-darker transform hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up-right">
+                        <h3 class="font-heading text-3xl font-bold text-gray-800 mb-4">🧒 Kids Clay Workshops</h3>
+                        <p class="text-gray-700 text-lg mb-6">
+                            Join our vibrant weekly sessions! Each class introduces a new theme, ranging from fantastical creatures to delicious clay treats. Watch as your child develops fine motor skills, color theory, and boundless creativity!
+                        </p>
+                        <ul class="text-left text-gray-600 space-y-2 mb-6 max-w-xs mx-auto">
+                            <li class="flex items-center"><span class="text-logo-pink-darker mr-2 text-2xl">&bull;</span> Ages 5-13</li>
+                            <li class="flex items-center"><span class="text-logo-pink-darker mr-2 text-2xl">&bull;</span> Weekly Clay Explorers </li>
+                            <li class="flex items-center"><span class="text-logo-pink-darker mr-2 text-2xl">&bull;</span> All Materials Included</li>
+                        </ul>
+                        <a href="#contact" class="bg-logo-pink-darker text-white font-bold font-heading py-3 px-8 rounded-full text-lg shadow-md hover:bg-logo-pink transition-colors duration-300 inline-block transform hover:scale-105">
+                            Book a Spot!
+                        </a>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-logo-orange-darker transform hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up-left">
+                        <h3 class="font-heading text-3xl font-bold text-gray-800 mb-4">🧘‍♀️ Adults & Mindful Makers</h3>
+                        <p class="text-gray-700 text-lg mb-6">
+                           Take a creative pause and enjoy the soothing rhythm of clay. Our guided sessions help you unwind, reconnect, and create something beautiful, one mindful moment at a time. Ideal for individuals, friends, or teams seeking a relaxing and creative escape.
+                        </p>
+                        <ul class="text-left text-gray-600 space-y-2 mb-6 max-w-xs mx-auto">
+                            <li class="flex items-center"><span class="text-logo-orange-darker mr-2 text-2xl">&bull;</span> No experience needed</li>
+                            <li class="flex items-center"><span class="text-logo-orange-darker mr-2 text-2xl">&bull;</span> Helps calm the mind and boost creativity</li>
+                            <li class="flex items-center"><span class="text-logo-orange-darker mr-2 text-2xl">&bull;</span>All materials provided</li>
+                        </ul>
+                        <a href="#contact" class="bg-logo-orange-darker text-white font-bold font-heading py-3 px-8 rounded-full text-lg shadow-md hover:bg-logo-orange transition-colors duration-300 inline-block transform hover:scale-105">
+                            Plan Your Party!
+                        </a>
+                    </div>
+
+   <!-- Box 3 -->
+    <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-logo-green-darker transform hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up-right">
+        <h3 class="font-heading text-3xl font-bold text-gray-800 mb-4">👵 For seniors & wellbeing groups</h3>
+        <p class="text-gray-700 text-lg mb-6">
+           Clay art offers a gentle way to stay creative and connected. Each session keeps the mind active, encourages gentle movement, and brings joy through shared moments of making and learning together.
+        </p>
+
+ <ul class="text-left text-gray-600 space-y-2 mb-6 max-w-xs mx-auto">
+                            <li class="flex items-center"><span class="text-logo-green-darker mr-2 text-2xl">&bull;</span> Keeps the mind active</li>
+                            <li class="flex items-center"><span class="text-logo-green-darker mr-2 text-2xl">&bull;</span> Enhances fine motor skills</li>
+                            <li class="flex items-center"><span class="text-logo-green-darker mr-2 text-2xl">&bull;</span> Encourages social connection</li>
+                        </ul>
+
+
+ <a href="#contact" class="bg-logo-green-darker text-white font-bold font-heading py-3 px-8 rounded-full text-lg shadow-md hover:bg-logo-green transition-colors duration-300 inline-block transform hover:scale-105">
+            Learn More
+        </a>
+
+        
+       
+    </div>
+                       <!-- Box 4 -->
+    <div class="bg-white p-8 rounded-3xl shadow-xl border-b-8 border-logo-green-darker transform hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up-right">
+        <h3 class="font-heading text-3xl font-bold text-gray-800 mb-4">🏫 For educators & community partners</h3>
+        <p class="text-gray-700 text-lg mb-6">
+           Rainbow Clay Art delivers guided, hands-on workshops that combine creative learning with mindful making. Each session follows a themed design, allowing learners to personalise and express their own style through colour and decoration.
+        </p>
+
+
+ <ul class="text-left text-gray-600 space-y-2 mb-6 max-w-xs mx-auto">
+                            <li class="flex items-center"><span class="text-logo-green-darker mr-2 text-2xl">&bull;</span> Guided creative projects</li>
+                            <li class="flex items-center"><span class="text-logo-green-darker mr-2 text-2xl">&bull;</span> Builds focus and coordination</li>
+                            <li class="flex items-center"><span class="text-logo-green-darker mr-2 text-2xl">&bull;</span> Supports wellbeing</li>
+                        </ul>
+        
+        <a href="#contact" class="bg-logo-green-darker text-white font-bold font-heading py-3 px-8 rounded-full text-lg shadow-md hover:bg-logo-green transition-colors duration-300 inline-block transform hover:scale-105">
+            Learn More
+        </a>
+    </div>
+                    
+                </div>
+            </div>
+            <div class="wavy-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
+        </section>
+
+        <section id="gallery" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-center text-gray-900 mb-12" data-aos="fade-up">
+                    Our Little Artists' <span class="text-logo-green-darker">Masterpiece Gallery</span>
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-pink" data-aos="zoom-in" data-aos-delay="100">
+                        <img src="images/1.jpg" alt="Clay artwork by a child" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-green" data-aos="zoom-in" data-aos-delay="200">
+                        <img src="images/2.jpg" alt="Colorful clay creation" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-blue" data-aos="zoom-in" data-aos-delay="300">
+                        <img src="images/3.jpg" alt="Child's clay space rocket" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-orange" data-aos="zoom-in" data-aos-delay="400">
+                        <img src="images/4.jpg" alt="A cake made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-purple" data-aos="zoom-in" data-aos-delay="500">
+                        <img src="images/5.jpg" alt="A magical clay unicorn" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-yellow" data-aos="zoom-in" data-aos-delay="600">
+                        <img src="images/6.jpg" alt="A sunny flower made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-green" data-aos="zoom-in" data-aos-delay="700">
+                        <img src="images/7.jpg" alt="A big tree made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square bg-logo-pink" data-aos="zoom-in" data-aos-delay="800">
+                        <img src="images/8.jpg" alt="A fantasy castle made from clay" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="500" height="500" />
+                    </div>
+                </div>
+                <div class="text-center mt-12" data-aos="fade-up">
+                    <a href="#contact" class="bg-logo-blue-darker text-white font-bold font-heading py-4 px-10 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform duration-300 inline-block drop-shadow-md">
+                        Your Child's Art Here Soon!
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="testimonials" class="py-20 hero-bg-color relative">
+            <div class="wavy-divider-top" style="fill:#ffffff;">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
+            <div class="container mx-auto px-6 text-center z-10 relative pt-12">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-12" data-aos="fade-up">
+                    What <span class="text-logo-pink-darker">Happy Parents</span> Say
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                    <div class="bg-white p-8 rounded-3xl shadow-xl transform" data-aos="fade-right">
+                        <iconify-icon icon="fa:quote-left" class="text-logo-pink-darker text-4xl mb-4"></iconify-icon>
+                        <p class="text-gray-700 text-lg mb-6 italic">
+                            "My daughter absolutely loves her weekly class at Rainbow Clay Art. She comes home so proud of her creations, and her confidence has blossomed. The environment is so nurturing and fun!"
+                        </p>
+                        <div class="flex justify-center text-yellow-400 mb-4">
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                        </div>
+                        <p class="font-heading text-2xl font-bold text-gray-800">- Sarah J.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-xl" data-aos="fade-left">
+                        <iconify-icon icon="fa:quote-left" class="text-logo-green-darker text-4xl mb-4"></iconify-icon>
+                        <p class="text-gray-700 text-lg mb-6 italic">
+                            "We had my son's 5th birthday party here and it was the best decision! The kids were so engaged, and the team handled everything. It was creative, stress-free, and a huge hit. Highly recommend!"
+                        </p>
+                         <div class="flex justify-center text-yellow-400 mb-4">
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                            <iconify-icon icon="fa:star" class="w-6 h-6"></iconify-icon>
+                        </div>
+                        <p class="font-heading text-2xl font-bold text-gray-800">- Ben L.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="wavy-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
+        </section>
+
+        <section id="about" class="py-20 bg-white relative">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center gap-12" data-aos="fade-up">
+                    <div class="w-full md:w-1/2 order-2 md:order-1">
+                        <img src="images/9.jpg" alt="Happy kids creating clay art in a class" class="rounded-3xl shadow-2xl w-full" loading="lazy" decoding="async" width="600" height="450" />
+                    </div>
+                    <div class="w-full md:w-1/2 text-left order-1 md:order-2">
+                        <span class="text-logo-green-darker font-bold uppercase font-heading text-lg">Our Story</span>
+                        <h2 class="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 my-4">
+                          Inspiring creativity and joy through clay since 2014
+                        </h2>
+                        <p class="text-lg text-gray-700 mb-4 leading-relaxed">
+                           Founded in Cambodia in 2014, Rainbow Clay Art grew through partnerships with international schools in Phnom Penh, where learners discovered the joy of mindful making.
+                        </p>
+                        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                            Each workshop helps children explore, focus, and express themselves through clay, a philosophy we continue to share with children and communities across New Zealand.
+                        </p>
+                        <a href="#team" class="bg-logo-pink-darker text-white font-bold font-heading py-3 px-8 rounded-full text-lg shadow-md hover:bg-logo-pink transition-colors duration-300 inline-block transform hover:scale-105">
+                            Meet Our Fun Team &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="py-20 hero-bg-color relative">
+            <div class="wavy-divider-top" style="fill:#ffffff;">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
+            <div class="container mx-auto px-6 text-center z-10 relative pt-12">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-12" data-aos="fade-up">
+                    Meet the <span class="text-logo-orange-darker">Creative Spark</span>
+                </h2>
+                <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl transform" data-aos="zoom-in-up">
+                    <img src="images/kath.jpg" alt="Photo of Kath Pothipat, Founder & Lead Instructor" class="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg border-4 border-white object-cover" loading="lazy" decoding="async" width="160" height="160">
+                    <h3 class="font-heading text-3xl font-bold text-gray-800">Kath Pothipat</h3>
+                    <p class="font-bold text-logo-orange-darker text-lg mb-4">Founder & Creative Educator</p>
+                    <p class="text-gray-700">
+                        "It’s so rewarding to see learners gain confidence and creative skills through clay art. Each class is thoughtfully designed to help them grow, one piece at a time. With over a decade of experience delivering creative workshops in Cambodia and New Zealand, I aim to inspire creativity, mindfulness, and joy in every learner."
+                    </p>
+                </div>
+            </div>
+            <div class="wavy-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
+        </section>
+        
+        <section id="faq" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-center text-gray-900 mb-16" data-aos="fade-up">
+                    Frequently Asked <span class="text-logo-blue-darker">Questions</span>
+                </h2>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <details class="faq-item bg-gray-50 p-6 rounded-2xl shadow-sm cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                        <summary class="flex justify-between items-center font-bold text-lg text-gray-800">
+                            Is the clay safe for young children?
+                            <span class="text-2xl text-logo-blue-darker">
+                               <span class="plus-icon">+</span><span class="minus-icon">-</span>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                            Absolutely! The safety of our little artists is our top priority. We exclusively use high-quality, non-toxic, super-soft air-dry clay that is certified safe for children and easy for little hands to work with.
+                        </p>
+                    </details>
+                    <details class="faq-item bg-gray-50 p-6 rounded-2xl shadow-sm cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                        <summary class="flex justify-between items-center font-bold text-lg text-gray-800">
+                            What should my child wear to a class?
+                            <span class="text-2xl text-logo-blue-darker">
+                               <span class="plus-icon">+</span><span class="minus-icon">-</span>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                            We encourage creative messes! Please send your child in comfortable clothes that you don't mind getting a little bit of color on. While the clay is water-based and generally doesn't stain, it's always best to wear "art-friendly" attire.
+                        </p>
+                    </details>
+                     <details class="faq-item bg-gray-50 p-6 rounded-2xl shadow-sm cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                        <summary class="flex justify-between items-center font-bold text-lg text-gray-800">
+                            Do we need to bring any supplies?
+                            <span class="text-2xl text-logo-blue-darker">
+                               <span class="plus-icon">+</span><span class="minus-icon">-</span>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                           Nope, just bring your imagination! We provide all the clay, tools, and materials needed for each project. Everything is included in the class or party fee.
+                        </p>
+                    </details>
+                    <details class="faq-item bg-gray-50 p-6 rounded-2xl shadow-sm cursor-pointer" data-aos="fade-up" data-aos-delay="400">
+                        <summary class="flex justify-between items-center font-bold text-lg text-gray-800">
+                            Can my child take their artwork home?
+                            <span class="text-2xl text-logo-blue-darker">
+                               <span class="plus-icon">+</span><span class="minus-icon">-</span>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                           Of course! Every child takes their unique masterpiece home at the end of each class. The air-dry clay will harden on its own in 24-48 hours, becoming a lasting treasure to display proudly.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 bg-white relative">
+            <div class="container mx-auto px-6" data-aos="fade-up">
+                <div class="max-w-4xl mx-auto bg-logo-blue bg-opacity-15 p-8 md:p-12 rounded-3xl shadow-2xl">
+                    <div class="text-center">
+                        <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                            Let's Get Creating Together!
+                        </h2>
+                        <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed">
+                            Ready for some clay-tastic fun? Have questions about our classes, parties, or want to say hello? Drop us a line!
+                        </p>
+                    </div>
+                    <form name="contact" method="POST" data-netlify="true" class="space-y-6">
+                        <input type="hidden" name="form-name" value="contact" />
+                        <p class="hidden">
+                            <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Your Name <span class="text-logo-pink-darker">*</span></label>
+                                <input type="text" name="name" id="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-logo-blue-darker focus:border-logo-blue-darker transition-colors duration-200" placeholder="e.g., Happy Parent" />
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Your Email <span class="text-logo-pink-darker">*</span></label>
+                                <input type="email" name="email" id="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-logo-blue-darker focus:border-logo-blue-darker transition-colors duration-200" placeholder="e.g., creative@example.com" />
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                            <input type="text" name="subject" id="subject" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-logo-blue-darker focus:border-logo-blue-darker transition-colors duration-200" placeholder="e.g., Birthday Party Inquiry" />
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Your Message <span class="text-logo-pink-darker">*</span></label>
+                            <textarea name="message" id="message" rows="6" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-logo-blue-darker focus:border-logo-blue-darker transition-colors duration-200" placeholder="Tell us about your little artist's dreams!"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="bg-logo-green-darker text-white font-bold font-heading py-4 px-12 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform duration-300 inline-block drop-shadow-md">
+                                Send My Message!
+                            </button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-12 pt-8 border-t border-gray-200">
+                        <p class="text-gray-700 text-lg">Prefer to chat? You can also reach us directly:</p>
+                        <p class="text-gray-900 font-extrabold font-heading text-2xl md:text-3xl my-3">rainbowclayart@gmail.com</p>
+                        <p class="text-gray-600 text-md">Proudly igniting creativity in <strong>Auckland, New Zealand</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-6 flex flex-col items-center text-center">
+            <a href="#home" class="mb-4">
+                 <img src="images/logo.png" alt="Rainbow Clay Art Logo" class="logo-img h-20 w-20 rounded-full object-contain border-2 border-white shadow-lg" width="80" height="80" />
+            </a>
+            <p class="font-medium">&copy; 2025 Rainbow Clay Art. All Rights Reserved.</p>
+            <p class="text-sm mt-2">💖 Inspiring creativity and joy through clay.🌈</p>
+        </div>
+    </footer>
+
+    <!-- Performance Optimization: Defer non-critical scripts -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" defer></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if AOS is loaded before initializing
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800, // animation duration
+                    once: true,    // whether animation should happen only once
                 });
             }
-            
-            setActiveLink(targetHref);
 
-            // Hide mobile menu after a click
-            if (mobileMenu) {
-                mobileMenu.classList.add('hidden');
+            // --- JavaScript for Navigation ---
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            // Select all navigation links within the header to handle clicks
+            const allNavLinks = document.querySelectorAll('header a[href^="#"]'); 
+            const desktopNavLinks = document.querySelectorAll('nav .nav-link');
+            const mobileNavLinks = document.querySelectorAll('#mobile-menu .nav-link-mobile');
+
+            // --- Mobile Menu Toggle ---
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // --- Function to update active link styles ---
+            const setActiveLink = (targetHref) => {
+                if (!targetHref) return;
+
+                desktopNavLinks.forEach(link => {
+                    if (link.getAttribute('href') === targetHref) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                mobileNavLinks.forEach(link => {
+                    if (link.getAttribute('href') === targetHref) {
+                        link.classList.add('font-bold', 'text-gray-900', 'bg-gray-50');
+                    } else {
+                        link.classList.remove('font-bold', 'text-gray-900', 'bg-gray-50');
+                    }
+                });
+            };
+
+            // --- Main navigation click handler ---
+            allNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetHref = link.getAttribute('href');
+                    if (!targetHref) return;
+                    const targetElement = document.querySelector(targetHref);
+
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    setActiveLink(targetHref);
+
+                    // Hide mobile menu after a click
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            // --- Set initial active link on page load ---
+            // Check hash on load to support direct links to sections
+            const currentHash = window.location.hash;
+            if (currentHash) {
+                setActiveLink(currentHash);
+            } else {
+                setActiveLink('#home');
             }
         });
-    });
-
-    // --- Set initial active link on page load ---
-    // Check hash on load to support direct links to sections
-    const currentHash = window.location.hash;
-    if (currentHash) {
-        setActiveLink(currentHash);
-    } else {
-        setActiveLink('#home');
-    }
-});
+    </script>
+</body>
+</html>
