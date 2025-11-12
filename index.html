@@ -6,6 +6,18 @@
     <title>Rainbow Clay Art - Fun Kids Clay Classes in NZ</title>
     <!-- Favicon -->
     <link rel="icon" href="images/logo.png" type="image/png">
+
+    <!-- Google Analytics - START -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z5WYM9RHV1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Z5WYM9RHV1');
+    </script>
+    <!-- Google Analytics - END -->
     
     <!-- Font Optimization: Preconnect to Google Fonts servers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -170,9 +182,30 @@
         .gallery-item-orange { --border-color: #F97316; }
         .gallery-item-purple { --border-color: #a855f7; } /* Tailwind's purple-500 */
         .gallery-item-yellow { --border-color: #f59e0b; } /* Tailwind's amber-500 */
+
+        /* Responsive Iframe for YouTube */
+        .responsive-iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .responsive-iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
+
+    <!-- Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0"></script>
 
     <header class="bg-white shadow-lg sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -192,6 +225,7 @@
                 <a href="#gallery" class="nav-link text-gray-700 hover:text-logo-orange-darker transition-colors duration-300">Gallery</a>
                 <a href="#classes" class="nav-link text-gray-700 hover:text-logo-pink-darker transition-colors duration-300">Classes</a>
                 <a href="#testimonials" class="nav-link text-gray-700 hover:text-logo-blue-darker transition-colors duration-300">Testimonials</a>
+                <a href="#social" class="nav-link text-gray-700 hover:text-logo-pink-darker transition-colors duration-300">Social</a>
                 <a href="#faq" class="nav-link text-gray-700 hover:text-logo-green-darker transition-colors duration-300">FAQ</a>
                 <a href="#contact" class="bg-logo-blue-darker text-white font-bold py-3 px-6 rounded-full shadow-md hover:bg-logo-blue transition-all duration-300 transform hover:scale-105">Contact Us</a>
             </div>
@@ -203,6 +237,7 @@
             <a href="#gallery" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Gallery</a>
             <a href="#classes" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Classes</a>
             <a href="#testimonials" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Testimonials</a>
+            <a href="#social" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Social</a>
             <a href="#faq" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">FAQ</a>
             <a href="#contact" class="nav-link-mobile block py-3 px-6 text-gray-700 hover:bg-gray-100 font-medium">Contact Us</a>
         </div>
@@ -554,6 +589,59 @@
                     </details>
                 </div>
             </div>
+        </section>
+
+        <section id="social" class="py-20 hero-bg-color relative">
+            <div class="wavy-divider-top" style="fill:#ffffff;">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
+            <div class="container mx-auto px-6 text-center z-10 relative pt-12">
+                <h2 class="font-heading text-3xl md:text-5xl font-extrabold text-gray-900 mb-16" data-aos="fade-up">
+                    🌈 Stay Connected &amp; <span class="text-logo-pink-darker">Inspired</span>!
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto items-start">
+                    <!-- Facebook Column -->
+                    <div data-aos="fade-right" data-aos-delay="100">
+                        <h3 class="font-heading text-3xl font-bold text-gray-800 mb-6">Latest from Facebook</h3>
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                            <div class="fb-page" 
+                                 data-href="https://www.facebook.com/rainbowclayart/" 
+                                 data-tabs="timeline" 
+                                 data-width="" 
+                                 data-height="600" 
+                                 data-small-header="false" 
+                                 data-adapt-container-width="true" 
+                                 data-hide-cover="false" 
+                                 data-show-facepile="true">
+                                <blockquote cite="https://www.facebook.com/rainbowclayart/" class="fb-xfbml-parse-ignore">
+                                    <a href="https://www.facebook.com/rainbowclayart/">Rainbow Clay Art</a>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- YouTube Column -->
+                    <div data-aos="fade-left" data-aos-delay="200">
+                        <h3 class="font-heading text-3xl font-bold text-gray-800 mb-6">Class Demo Video</h3>
+                        <div class="responsive-iframe-container rounded-2xl shadow-lg overflow-hidden bg-black">
+                            <iframe 
+                                src="https://www.youtube-nocookie.com/embed/HxCX5PjQVQk?rel=0" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wavy-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                   <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+               </svg>
+           </div>
         </section>
 
         <section id="contact" class="py-20 bg-white relative">
